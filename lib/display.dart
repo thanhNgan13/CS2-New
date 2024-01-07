@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: const Center(
         child: Text(
-          'Ngân CC !!!',
+          'Mạnh CC !!!',
           style: TextStyle(
               color: Colors.orange,
               fontSize: 40,
