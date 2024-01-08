@@ -55,9 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               const Row(
                 children: [
-                  ImageIcon(
-                    AssetImage('assets/images/operanews_logo.png'),
-                  ),
+                  FlutterLogo(),
                 ],
               ),
               Row(
