@@ -1,28 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../../../utils/button.dart';
 
-class TemplateShort extends StatelessWidget {
+class ShortVideoTemplate extends StatefulWidget {
   final String nameAccount;
   final String caption;
   final String hashTag;
   final String like;
   final String comment;
   final String share;
-
-  const TemplateShort(
+  final String urlVideo;
+  const ShortVideoTemplate(
       {super.key,
       required this.nameAccount,
       required this.caption,
       required this.hashTag,
       required this.like,
       required this.comment,
-      required this.share});
+      required this.share,
+      required this.urlVideo});
+  @override
+  State<ShortVideoTemplate> createState() => _ShortVideoTemplateState();
+}
+
+class _ShortVideoTemplateState extends State<ShortVideoTemplate> {
+  late VideoPlayerController _controller;
+  bool _isPlaying = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.urlVideo))
+      ..initialize().then((_) {
+        _controller.play();
+        setState(() {});
+      })
+      ..setLooping(true);
+  }
+
+  void _playPause() {
+    setState(() {
+      if (_controller.value.isPlaying) {
+        _controller.pause();
+        _isPlaying = false;
+      } else {
+        _controller.play();
+        _isPlaying = true;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
       children: [
+        // video
+        // Video
+        Positioned.fill(
+            child: GestureDetector(
+          onTap: _playPause,
+          child: _controller.value.isInitialized
+              ? AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                )
+              : Center(child: CircularProgressIndicator()),
+        )),
         // user name and capption video
         Padding(
           padding: const EdgeInsets.all(10.0),
@@ -32,7 +83,7 @@ class TemplateShort extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(nameAccount,
+                Text(widget.nameAccount,
                     style: const TextStyle(
                         color: Colors.black,
                         fontSize: 16,
@@ -43,13 +94,13 @@ class TemplateShort extends StatelessWidget {
                 RichText(
                     text: TextSpan(children: [
                   TextSpan(
-                      text: caption,
+                      text: widget.caption,
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 16,
                           fontWeight: FontWeight.bold)),
                   TextSpan(
-                      text: hashTag,
+                      text: widget.hashTag,
                       style: const TextStyle(
                           color: Colors.blue,
                           fontSize: 16,
@@ -68,18 +119,26 @@ class TemplateShort extends StatelessWidget {
                   Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                 MyButton(
                   icon: Icons.favorite,
-                  text: like,
+                  text: widget.like,
                 ),
                 MyButton(
                   icon: Icons.comment,
-                  text: comment,
+                  text: widget.comment,
                 ),
                 MyButton(
                   icon: Icons.share,
-                  text: share,
+                  text: widget.share,
                 ),
               ]),
-            ))
+            )),
+        // video
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+          ),
+        ),
       ],
     ));
   }
