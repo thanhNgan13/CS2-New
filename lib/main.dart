@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'src/models/BottomNavItem.dart';
 import 'src/views/pages/reels_page.dart';
 import 'src/views/pages/user.dart';
-import 'src/widgets/CategoryWidget.dart';
+import 'src/widgets/AppBar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -71,79 +71,23 @@ class _MyHomePageState extends State<MyHomePage> {
     BottomNavItem(icon: const Icon(Icons.person_outline), label: 'User'),
   ];
 
+  void _updateSelectedCategory(String category) {
+    setState(() {
+      SelectedCategory = category;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          toolbarHeight: 110,
-          backgroundColor: Colors.black,
-          flexibleSpace: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const FlutterLogo(
-                      size: 40,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        _showSearchModal(context);
-                      },
-                      child: const Icon(
-                        Icons.search,
-                        color: Colors.grey,
-                        size: 30,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            for (var category in categories)
-                              CategoryWidget(
-                                categoryName: category,
-                                isSelected: category == SelectedCategory,
-                                onTap: () {
-                                  setState(() {
-                                    SelectedCategory = category;
-                                  });
-                                },
-                              ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Icon(
-                            Icons.format_list_bulleted,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
+        appBar: (_selectedIndex == 0 || _selectedIndex == 1)
+            ? CustomAppBar(
+                categories: categories,
+                selectedCategory: SelectedCategory,
+                updateSelectedCategory: _updateSelectedCategory,
+              )
+            : null,
         body: _pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.black,
@@ -169,46 +113,4 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ));
   }
-}
-
-void _showSearchModal(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    builder: (BuildContext context) {
-      return DraggableScrollableSheet(
-        initialChildSize: 1.0,
-        maxChildSize: 1.0, // chiều cao tối đa của modal (toàn bộ màn hình)
-        minChildSize: 0.1, // chiều cao tối thiểu của modal (10% của màn hình)
-        builder: (BuildContext context, ScrollController scrollController) {
-          return Container(
-            color: Colors.black,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  height: 100,
-                  color: Colors.red,
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.arrow_back_rounded,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          );
-        },
-      );
-    },
-  );
 }
