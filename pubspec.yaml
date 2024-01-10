@@ -37,6 +37,7 @@ dependencies:
   # add this line to your dependencies
   fluttertoast: ^8.2.4
   video_player: ^2.8.2
+  font_awesome_flutter: ^10.6.0
 
 dev_dependencies:
   flutter_test:

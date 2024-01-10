@@ -39,7 +39,7 @@ class _ShortPageState extends State<ShortPage> {
     const Center(child: Text('Home')),
     const Center(child: Text('Search')),
     ReelsPage(),
-    const ListButtonForUser()
+    UserPage()
   ];
 
   @override

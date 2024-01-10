@@ -11,7 +11,7 @@ class MyVideo1 extends StatelessWidget {
         nameAccount: '@ptn',
         caption: 'diem tin tuc moi nhat',
         hashTag: '#tin_tuc',
-        like: '1.2M',
+        like: '0',
         comment: '1.2K',
         share: '2.6K',
         urlVideo:

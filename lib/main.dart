@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
     const Center(child: Text('Home')),
     const Center(child: Text('Search')),
     ReelsPage(),
-    const ListButtonForUser()
+    UserPage()
   ];
 
   final List<BottomNavItem> bottomNavItems = [

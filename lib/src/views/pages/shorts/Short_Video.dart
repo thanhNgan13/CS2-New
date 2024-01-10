@@ -26,6 +26,7 @@ class ShortVideoTemplate extends StatefulWidget {
 
 class _ShortVideoTemplateState extends State<ShortVideoTemplate> {
   late VideoPlayerController _controller;
+  // ignore: unused_field
   bool _isPlaying = true;
 
   @override
@@ -62,7 +63,6 @@ class _ShortVideoTemplateState extends State<ShortVideoTemplate> {
     return Scaffold(
         body: Stack(
       children: [
-        // video
         // Video
         Positioned.fill(
             child: GestureDetector(
@@ -72,7 +72,7 @@ class _ShortVideoTemplateState extends State<ShortVideoTemplate> {
                   aspectRatio: _controller.value.aspectRatio,
                   child: VideoPlayer(_controller),
                 )
-              : Center(child: CircularProgressIndicator()),
+              : const Center(child: CircularProgressIndicator()),
         )),
         // user name and capption video
         Padding(
@@ -85,7 +85,7 @@ class _ShortVideoTemplateState extends State<ShortVideoTemplate> {
               children: [
                 Text(widget.nameAccount,
                     style: const TextStyle(
-                        color: Colors.black,
+                        color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.bold)),
                 const SizedBox(
@@ -96,7 +96,7 @@ class _ShortVideoTemplateState extends State<ShortVideoTemplate> {
                   TextSpan(
                       text: widget.caption,
                       style: const TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.bold)),
                   TextSpan(
@@ -119,15 +119,18 @@ class _ShortVideoTemplateState extends State<ShortVideoTemplate> {
                   Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                 MyButton(
                   icon: Icons.favorite,
-                  text: widget.like,
+                  initialText: widget.like,
+                  type: MyButtonEnum.like,
                 ),
                 MyButton(
                   icon: Icons.comment,
-                  text: widget.comment,
+                  initialText: widget.comment,
+                  type: MyButtonEnum.comment,
                 ),
                 MyButton(
                   icon: Icons.share,
-                  text: widget.share,
+                  initialText: widget.share,
+                  type: MyButtonEnum.share,
                 ),
               ]),
             )),
