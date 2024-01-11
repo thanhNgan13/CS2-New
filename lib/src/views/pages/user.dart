@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:country_picker/country_picker.dart';
 import '../../widgets/CustomButton.dart';
 
 class UserPage extends StatefulWidget {
@@ -405,7 +405,15 @@ class _UserPageState extends State<UserPage> with WidgetsBindingObserver {
                     initialText: 'Country & Language',
                     type: buttonType.countryLanguage,
                     onPressed: () {
-                      displayShowLanguage();
+                      showCountryPicker(
+                          context: context,
+                          onSelect: (Country country) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Đã chọn ${country.name}'),
+                              ),
+                            );
+                          });
                     },
                   ),
                 ),
