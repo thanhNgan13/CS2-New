@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/CustomButton.dart';
+
 class UserPage extends StatefulWidget {
   const UserPage({super.key});
 
@@ -8,7 +10,23 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> with WidgetsBindingObserver {
+  // Lấy chiều dài và chiều cao của màn hình
+
   bool isBottomSheetOpen = false;
+  int _selectedLanguageIndex = -1; // Ban đầu không ngôn ngữ nào được chọn
+
+  // Danh sách các ngôn ngữ và quốc gia
+  final List<Map<String, dynamic>> _languages = [
+    {
+      'name': 'Vietnam - Vietnamese',
+      'flag': 'https://img.icons8.com/color/452/vietnam.png',
+    },
+    {
+      'name': 'United States - English',
+      'flag': 'https://img.icons8.com/color/452/vietnam.png',
+    },
+    // Thêm các ngôn ngữ khác tương tự
+  ];
 
   @override
   void initState() {
@@ -25,7 +43,7 @@ class _UserPageState extends State<UserPage> with WidgetsBindingObserver {
   @override
   void didChangeMetrics() {
     final mediaQueryData = MediaQuery.of(context);
-    if (mediaQueryData.orientation == Orientation.landscape &&
+    if (mediaQueryData.orientation == Orientation.portrait &&
         isBottomSheetOpen) {
       Navigator.of(context).pop(); // Đóng chỉ khi bottom sheet đang mở
       isBottomSheetOpen = false; // Cập nhật trạng thái
@@ -39,6 +57,7 @@ class _UserPageState extends State<UserPage> with WidgetsBindingObserver {
       // Nếu thiết bị đang ở chế độ ngang, không hiển thị bottom sheet
       return;
     } else {
+      isBottomSheetOpen = true; // Đánh dấu bottom sheet đang mở
       showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
@@ -57,8 +76,8 @@ class _UserPageState extends State<UserPage> with WidgetsBindingObserver {
                       ),
                     ),
                     child: ClipOval(
-                      child: Image.network(
-                        'https://play-lh.googleusercontent.com/k4P3OMHi8g3ofGEYxSWtF95D5Wnumc9VZ_d2FScWr74-K-9XzERHFmDAVwJ3GK2P0rk',
+                      child: Image.asset(
+                        'assets/images/opera-news-logo.png',
                         fit: BoxFit.cover,
                         height: 60.0,
                         width: 60.0,
@@ -78,24 +97,180 @@ class _UserPageState extends State<UserPage> with WidgetsBindingObserver {
                     ),
                   ),
                 ),
-                customButton('https://img.icons8.com/color/452/google-logo.png',
-                    'Sign in with Google'),
-                customButton(
-                    'https://img.icons8.com/color/452/facebook-new.png',
-                    'Sign in with Facebook'),
-                customButton('https://img.icons8.com/color/452/twitter.png',
-                    'Sign in with Twitter'),
+                // button
+                ButtonLogin(
+                    urlImage: 'assets/images/google-logo.png',
+                    text: 'Sign in with Google',
+                    onPressed: () {}),
+                ButtonLogin(
+                    urlImage: 'assets/images/facebook-logo.png',
+                    text: 'Sign in with Facebook',
+                    onPressed: () {}),
+                ButtonLogin(
+                    urlImage: 'assets/images/twitter-logo.png',
+                    text: 'Sign in with Twitter',
+                    onPressed: () {}),
               ],
             ),
           );
         },
       ).whenComplete(() {
-        isBottomSheetOpen = false; // Cập nhật trạng thái khi bottom sheet đóng
+        isBottomSheetOpen = false; // Đánh dấu bottom sheet đã đóng
       });
-      isBottomSheetOpen = true; // Đánh dấu bottom sheet đang mở
     }
   }
 
+  void displayShowLanguage1() {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.0),
+              color: Colors.white,
+            ),
+            width: screenWidth * 0.8,
+            height: screenHeight * 0.5,
+            child: Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Text(
+                    'Language & Country',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: _languages.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            primary: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _selectedLanguageIndex = index;
+                            });
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Image.network(
+                                _languages[index]['flag'],
+                                fit: BoxFit.cover,
+                                height: 30.0,
+                                width: 30.0,
+                              ),
+                              Text(
+                                _languages[index]['name'],
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              if (_selectedLanguageIndex == index)
+                                Icon(
+                                  Icons.check,
+                                  color: Colors.green,
+                                  size: 24,
+                                ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // Popup chọn ngôn ngữ và quốc gia
+  displayShowLanguage() {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.0),
+              color: Colors.white,
+            ),
+            width: screenWidth,
+            height: screenHeight * 0.5,
+            child: SingleChildScrollView(
+              child: Column(children: [
+                // Vietnam
+                const Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Text('Language & Country',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextButton(
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                      onPressed: () => {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.network(
+                            'https://img.icons8.com/color/452/vietnam.png',
+                            fit: BoxFit.cover,
+                            height: 30.0,
+                            width: 30.0,
+                          ),
+                          const SizedBox(width: 1),
+                          const Text(
+                            'Vietnam',
+                            style: TextStyle(color: Colors.black, fontSize: 14),
+                          ),
+                          const SizedBox(width: 50),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Icon(
+                                Icons.check,
+                                color: Colors.black,
+                                size: 20,
+                              )
+                            ],
+                          ),
+                        ],
+                      )),
+                ),
+              ]),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // Hàm tạo button
   Padding customButton([String urlImage = '', String text = '']) {
     return Padding(
       padding: const EdgeInsets.only(left: 50.0, right: 50.0, bottom: 10.0),
@@ -179,32 +354,40 @@ class _UserPageState extends State<UserPage> with WidgetsBindingObserver {
                 ],
               ),
             ),
-            const Row(
+            Row(
               children: [
                 Expanded(
                   child: CustomButton(
                     icon: Icons.bookmark_border,
                     initialText: 'Favorites',
+                    type: buttonType.favorites,
+                    onPressed: () {
+                      // Xử lý khi nút được nhấn
+                    },
                   ),
                 ),
               ],
             ),
-            const Row(
+            Row(
               children: [
                 Expanded(
                   child: CustomButton(
                     icon: Icons.get_app_outlined,
                     initialText: 'Read offline',
+                    type: buttonType.readOffline,
+                    onPressed: () {},
                   ),
                 ),
               ],
             ),
-            const Row(
+            Row(
               children: [
                 Expanded(
                   child: CustomButton(
                     icon: Icons.history,
                     initialText: 'Read late',
+                    type: buttonType.readLate,
+                    onPressed: () {},
                   ),
                 ),
               ],
@@ -214,65 +397,47 @@ class _UserPageState extends State<UserPage> with WidgetsBindingObserver {
               width: double.infinity,
               color: Colors.black,
             ),
-            const Row(
+            Row(
               children: [
                 Expanded(
                   child: CustomButton(
                     icon: Icons.language,
                     initialText: 'Country & Language',
+                    type: buttonType.countryLanguage,
+                    onPressed: () {
+                      displayShowLanguage();
+                    },
                   ),
                 ),
               ],
             ),
-            const Row(
+            Row(
               children: [
                 Expanded(
                   child: CustomButton(
                     icon: Icons.star_outline,
                     initialText: 'Rate us',
+                    type: buttonType.rateUs,
+                    onPressed: () {
+                      // Xử lý khi nút được nhấn
+                    },
                   ),
                 ),
               ],
             ),
-            const Row(
+            Row(
               children: [
                 Expanded(
                   child: CustomButton(
                     icon: Icons.mode_comment_outlined,
                     initialText: 'Feedback',
+                    type: buttonType.feedback,
+                    onPressed: () {},
                   ),
                 ),
               ],
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  final IconData icon;
-  final String initialText;
-  const CustomButton(
-      {super.key, required this.icon, required this.initialText});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(1.0),
-      child: InkWell(
-        onTap: () {
-          // Xử lý sự kiện khi button được nhấn
-        },
-        child: ListTile(
-          leading: Icon(icon),
-          title: Text(
-            initialText,
-            style: const TextStyle(color: Colors.black),
-          ),
-          trailing:
-              const Icon(Icons.chevron_right), // Icon mũi tên chỉ sang phải
         ),
       ),
     );

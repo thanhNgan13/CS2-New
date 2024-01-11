@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../../../utils/button.dart';
+import '../../../widgets/CustomButton.dart';
 
 class ShortVideoTemplate extends StatefulWidget {
   final String nameAccount;
