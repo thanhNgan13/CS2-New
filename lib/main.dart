@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String SelectedCategory = 'For you';
 
   final List<Widget> _pages = [
-    const Center(child: Text('Home')),
+    Container(child: Text('Home')),
     const Center(child: Text('Search')),
     ReelsPage(),
     UserPage()
@@ -80,7 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
         appBar: (_selectedIndex == 0 || _selectedIndex == 1)
             ? CustomAppBar(
                 categories: categories,

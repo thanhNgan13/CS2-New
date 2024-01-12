@@ -24,25 +24,25 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.black,
-      flexibleSpace: Padding(
-        padding: const EdgeInsets.only(
-          bottom: 0,
-          top: 10,
-          left: 10,
-          right: 10,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            //Row 1
-            Row(
+      flexibleSpace: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          //Row 1
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 //Logo
-                const FlutterLogo(
-                  size: 40,
-                ),
-                //Button Modal
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    'assets/images/opera-news-logo.png',
+                    fit: BoxFit.cover,
+                    height: 40.0,
+                    width: 40.0,
+                  ),
+                ), //Button Modal
                 ElevatedButton(
                   onPressed: () {
                     showModalBottomSheet(
@@ -95,63 +95,63 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 )
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            //Row 2
-            Row(
-              //Categories
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    controller: _scrollController,
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        for (var category in categories)
-                          CategoryWidget(
-                            categoryName: category,
-                            isSelected: category == selectedCategory,
-                            onTap: () {
-                              updateSelectedCategory(category);
-                              // Lấy chỉ số của danh mục được chọn
-                              int selectedIndex = categories.indexOf(category);
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          //Row 2
+          Row(
+            //Categories
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  controller: _scrollController,
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      for (var category in categories)
+                        CategoryWidget(
+                          categoryName: category,
+                          isSelected: category == selectedCategory,
+                          onTap: () {
+                            updateSelectedCategory(category);
+                            // Lấy chỉ số của danh mục được chọn
+                            int selectedIndex = categories.indexOf(category);
 
-                              // Tính toán khoảng cách cần di chuyển (có thể điều chỉnh giá trị này)
-                              double scrollOffset = selectedIndex * 50;
+                            // Tính toán khoảng cách cần di chuyển (có thể điều chỉnh giá trị này)
+                            double scrollOffset = selectedIndex * 50;
 
-                              // Di chuyển ScrollView sang trái
-                              _scrollController.animateTo(
-                                scrollOffset,
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.easeInOut,
-                              );
-                            },
-                          ),
-                      ],
+                            // Di chuyển ScrollView sang trái
+                            _scrollController.animateTo(
+                              scrollOffset,
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut,
+                            );
+                          },
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+              //Option News
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const OptionNews(),
                     ),
-                  ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.format_list_bulleted,
+                  color: Colors.white,
                 ),
-                //Option News
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const OptionNews(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.format_list_bulleted,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
