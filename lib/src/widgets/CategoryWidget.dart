@@ -1,15 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:opera_news/src/models/Category.dart';
 
 class CategoryWidget extends StatelessWidget {
-  final String categoryName;
-  final bool isSelected;
-  final VoidCallback onTap;
+  CategoryClass category;
+  final onTap;
 
-  const CategoryWidget({
+  CategoryWidget({
     Key? key,
-    required this.categoryName,
-    required this.isSelected,
     required this.onTap,
+    required this.category,
   }) : super(key: key);
 
   @override
@@ -21,17 +21,17 @@ class CategoryWidget extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              categoryName,
+              category.name,
               style: TextStyle(
-                fontSize: isSelected ? 22 : 16,
+                fontSize: category.isSelected ? 22 : 16,
                 fontWeight: FontWeight.w500,
-                color: isSelected ? Colors.white : Colors.grey,
+                color: category.isSelected ? Colors.white : Colors.grey,
               ),
             ),
             const SizedBox(
               height: 5,
             ),
-            if (isSelected)
+            if (category.isSelected)
               Container(
                 width: 35,
                 height: 4,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:opera_news/src/models/Category.dart';
 
 import 'src/models/BottomNavItem.dart';
 import 'src/views/pages/reels_page.dart';
@@ -31,27 +32,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
+    int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
-
-  List<String> categories = [
-    'Follow',
-    'For you',
-    'AWW',
-    'News',
-    'Comedy',
-    'Entertainment',
-    'Emotion',
-    'Sports',
-    'Tech',
-    'Car',
-  ];
-
-  String SelectedCategory = 'For you';
 
   final List<Widget> _pages = [
     Container(child: Text('Home')),
@@ -71,20 +57,13 @@ class _MyHomePageState extends State<MyHomePage> {
     BottomNavItem(icon: const Icon(Icons.person_outline), label: 'User'),
   ];
 
-  void _updateSelectedCategory(String category) {
-    setState(() {
-      SelectedCategory = category;
-    });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: (_selectedIndex == 0 || _selectedIndex == 1)
-            ? CustomAppBar(
-                categories: categories,
-                selectedCategory: SelectedCategory,
-                updateSelectedCategory: _updateSelectedCategory,
+            ? const CustomAppBar(
               )
             : null,
         body: _pages[_selectedIndex],
