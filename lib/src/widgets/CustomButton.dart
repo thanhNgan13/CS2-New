@@ -173,3 +173,36 @@ class ButtonLogin extends StatelessWidget {
     );
   }
 }
+
+class ButtonInVideosInteract extends StatelessWidget {
+  final IconData icon;
+  final String initialText;
+  final VoidCallback onPressed;
+
+  const ButtonInVideosInteract(
+      {super.key,
+      required this.icon,
+      this.initialText = '',
+      required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 40,
+      height: 40,
+      child: TextButton.icon(
+        style: TextButton.styleFrom(
+          padding: const EdgeInsets.all(5.0),
+        ),
+        icon: Icon(
+          icon,
+          size: 20,
+          color: Colors.black,
+        ),
+        label: Text(initialText,
+            style: const TextStyle(fontSize: 15, color: Colors.black)),
+        onPressed: onPressed,
+      ),
+    );
+  }
+}

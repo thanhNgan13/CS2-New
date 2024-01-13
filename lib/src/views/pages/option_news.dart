@@ -118,7 +118,7 @@ class OptionNews extends StatelessWidget {
                     ),
                     backgroundColor: Colors.black,
                   ),
-                  child: Item(),
+                  child: const Item(),
                 ),
               ],
             )

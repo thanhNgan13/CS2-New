@@ -26,10 +26,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.black,
       flexibleSpace: Padding(
         padding: const EdgeInsets.only(
-          bottom: 0,
           top: 10,
-          left: 10,
-          right: 10,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -157,5 +154,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(110.0);
+  Size get preferredSize => const Size.fromHeight(116.0);
 }

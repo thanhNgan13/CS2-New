@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:opera_news/src/views/pages/videos_page.dart';
 
 import 'src/models/BottomNavItem.dart';
 import 'src/views/pages/reels_page.dart';
@@ -55,9 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _pages = [
     const Center(child: Text('Home')),
-    const Center(child: Text('Search')),
+    const VideosPage(),
     ReelsPage(),
-    UserPage()
+    const UserPage()
   ];
 
   final List<BottomNavItem> bottomNavItems = [
@@ -80,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
+        // extendBodyBehindAppBar: true,
         appBar: (_selectedIndex == 0 || _selectedIndex == 1)
             ? CustomAppBar(
                 categories: categories,
@@ -88,7 +89,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 updateSelectedCategory: _updateSelectedCategory,
               )
             : null,
-        body: _pages[_selectedIndex],
+        body: IndexedStack(
+          index: _selectedIndex,
+          children: _pages,
+        ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.black,
           unselectedItemColor: Colors.grey,
