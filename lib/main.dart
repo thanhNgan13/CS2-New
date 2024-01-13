@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:opera_news/src/views/pages/videos_page.dart';
 import 'package:opera_news/src/models/Category.dart';
 
 import 'src/models/BottomNavItem.dart';
@@ -32,7 +33,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-    int _selectedIndex = 0;
+  int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -40,10 +41,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final List<Widget> _pages = [
-    Container(child: Text('Home')),
+    const Center(child: Text('Home')),
     const Center(child: Text('Search')),
     ReelsPage(),
-    UserPage()
+    const UserPage()
   ];
 
   final List<BottomNavItem> bottomNavItems = [
@@ -57,16 +58,17 @@ class _MyHomePageState extends State<MyHomePage> {
     BottomNavItem(icon: const Icon(Icons.person_outline), label: 'User'),
   ];
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: (_selectedIndex == 0 || _selectedIndex == 1)
-            ? const CustomAppBar(
-              )
+            ? const CustomAppBar()
             : null,
-        body: _pages[_selectedIndex],
+        body: IndexedStack(
+          index: _selectedIndex,
+          children: _pages,
+        ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.black,
           unselectedItemColor: Colors.grey,
