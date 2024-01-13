@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:opera_news/src/models/Category.dart';
 import 'package:opera_news/src/views/pages/videos_page.dart';
 
 import 'src/models/BottomNavItem.dart';
@@ -39,21 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  List<String> categories = [
-    'Follow',
-    'For you',
-    'AWW',
-    'News',
-    'Comedy',
-    'Entertainment',
-    'Emotion',
-    'Sports',
-    'Tech',
-    'Car',
-  ];
-
-  String SelectedCategory = 'For you';
-
   final List<Widget> _pages = [
     const Center(child: Text('Home')),
     const VideosPage(),
@@ -72,22 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
     BottomNavItem(icon: const Icon(Icons.person_outline), label: 'User'),
   ];
 
-  void _updateSelectedCategory(String category) {
-    setState(() {
-      SelectedCategory = category;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         // extendBodyBehindAppBar: true,
         appBar: (_selectedIndex == 0 || _selectedIndex == 1)
-            ? CustomAppBar(
-                categories: categories,
-                selectedCategory: SelectedCategory,
-                updateSelectedCategory: _updateSelectedCategory,
-              )
+            ? const CustomAppBar()
             : null,
         body: IndexedStack(
           index: _selectedIndex,

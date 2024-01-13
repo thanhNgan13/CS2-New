@@ -176,6 +176,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  reorderables:
+    dependency: "direct main"
+    description:
+      name: reorderables
+      sha256: "3173101fe3086d4bd349887f304b7584d97cf835d672cdbcb954df83ba89ec08"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -273,18 +281,18 @@ packages:
     dependency: transitive
     description:
       name: video_player_avfoundation
-      sha256: "752b783a00748684312dd6a68e22f795281d295921e69ae5ad36f90b7fb39cdb"
+      sha256: "309e3962795e761be010869bae65c0b0e45b5230c5cee1bec72197ca7db040ed"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.5"
+    version: "2.5.6"
   video_player_platform_interface:
     dependency: transitive
     description:
       name: video_player_platform_interface
-      sha256: be72301bf2c0150ab35a8c34d66e5a99de525f6de1e8d27c0672b836fe48f73a
+      sha256: "236454725fafcacf98f0f39af0d7c7ab2ce84762e3b63f2cbb3ef9a7e0550bc6"
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.1"
+    version: "6.2.2"
   video_player_web:
     dependency: transitive
     description:

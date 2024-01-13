@@ -4,23 +4,46 @@ class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
   @override
-  _SearchScreenState createState() => _SearchScreenState();
+  State<SearchScreen> createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final TextEditingController _textEditingController = TextEditingController();
-  bool _showClearIcon = false;
-  bool _showSearchIcon = true;
+  final TextEditingController _searchController = TextEditingController();
+  bool isSearchClicked = false;
+  String searchText = '';
+  List<String> items = [
+    'Items 1',
+    'Messi',
+    'Ronaldo',
+    'Virat Kohli',
+    '2',
+    'Rock',
+    'Elon Musk',
+  ];
 
+  List<String> filteredItems = [];
   @override
   void initState() {
     super.initState();
-    _textEditingController.addListener(() {
-      setState(() {
-        _showClearIcon = _textEditingController.text.isNotEmpty;
-        _showSearchIcon = _textEditingController.text.isEmpty;
-      });
+    filteredItems = List.from(items);
+  }
+
+  void _onSearchChanged(String value) {
+    setState(() {
+      searchText = value;
+      myFilterItems();
     });
+  }
+
+  void myFilterItems() {
+    if (searchText.isEmpty) {
+      filteredItems = List.from(items);
+    } else {
+      filteredItems = items
+          .where(
+              (item) => item.toLowerCase().contains(searchText.toLowerCase()))
+          .toList();
+    }
   }
 
   @override
@@ -28,101 +51,101 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: Colors.red,
+        automaticallyImplyLeading: false,
         flexibleSpace: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_rounded,
-                      color: Colors.white,
-                      size: 27,
-                    ),
                     onPressed: () {
                       Navigator.pop(context);
                     },
+                    icon: const Icon(
+                      Icons.arrow_back_rounded,
+                      size: 30,
+                      color: Colors.white,
+                    ),
                   ),
                   Expanded(
                     child: Container(
-                      height: 35,
-                      margin: const EdgeInsets.only(left: 10),
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      height: 35, // Set the desired height here
                       decoration: BoxDecoration(
                         color: Colors.black,
-                        borderRadius: BorderRadius.circular(999),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Row(
-                        children: [
-                          if (_showSearchIcon)
-                            const Icon(
-                              Icons.search_rounded,
-                              color: Colors.grey,
-                              size: 20,
-                            ),
-                          Expanded(
-                            child: TextField(
-                              controller: _textEditingController,
-                              maxLines: 1, // Allow multiline input2
-                              style: const TextStyle(color: Colors.white),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(color: Colors.grey),
-                              ),
-                            ),
-                          ),
-                          if (_showClearIcon)
-                            IconButton(
-                              icon: const Icon(
-                                Icons.clear,
-                                color: Colors.grey,
-                                size: 20,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _textEditingController.clear();
-                                  _showClearIcon = false;
-                                  _showSearchIcon = true;
-                                });
-                              },
-                            ),
-                        ],
+                      child: TextField(
+                        controller: _searchController,
+                        onChanged: _onSearchChanged,
+                        textInputAction: TextInputAction.search,
+                        cursorColor: Colors.grey,
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                        decoration: InputDecoration(
+                          contentPadding:
+                              const EdgeInsets.fromLTRB(16, 20, 16, 12),
+                          border: InputBorder.none,
+                          prefixIcon: searchText.isEmpty
+                              ? const Icon(
+                                  Icons.search,
+                                  color: Colors.grey,
+                                  size: 20,
+                                )
+                              : null,
+                          suffixIcon: searchText.isNotEmpty
+                              ? IconButton(
+                                  onPressed: () {
+                                    _searchController.clear();
+                                    setState(() {
+                                      searchText = '';
+                                    });
+                                  },
+                                  icon: const Icon(
+                                    Icons.clear,
+                                    color: Colors.grey,
+                                    size: 20,
+                                  ),
+                                )
+                              : null,
+                        ),
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
                       'TÌM KIẾM',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ],
           ),
         ),
       ),
-      body: const SingleChildScrollView(
-        child: Column(
-          children: [
-            // Your other content here
-          ],
-        ),
-      ),
+      // body parts
+      body: ListView.builder(
+          itemCount: filteredItems.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(
+                filteredItems[index],
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            );
+          }),
     );
-  }
-
-  @override
-  void dispose() {
-    _textEditingController.dispose();
-    super.dispose();
   }
 }
