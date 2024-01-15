@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:opera_news/src/views/pages/videos_page.dart';
 import 'package:opera_news/src/models/Category.dart';
+import 'package:opera_news/src/views/pages/home.dart';
+import 'package:opera_news/src/views/pages/videos_page.dart';
 
 import 'src/models/BottomNavItem.dart';
 import 'src/views/pages/reels_page.dart';
@@ -41,8 +42,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final List<Widget> _pages = [
-    const Center(child: Text('Home')),
-    const Center(child: Text('Search')),
+    const HomePage(),
+    const VideosPage(),
     ReelsPage(),
     const UserPage()
   ];
@@ -61,7 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
         appBar: (_selectedIndex == 0 || _selectedIndex == 1)
             ? const CustomAppBar()
             : null,
