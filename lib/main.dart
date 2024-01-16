@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final List<Widget> _pages = [
-    const HomePage(),
+    HomePage(),
     const VideosPage(),
     ReelsPage(),
     const UserPage()
