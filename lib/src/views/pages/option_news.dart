@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:opera_news/src/models/Category.dart';
-import 'package:opera_news/src/widgets/CategoryWidget.dart';
 
 import '../../widgets/CategoryItem.dart';
 
@@ -158,7 +157,7 @@ class _OptionNewsState extends State<OptionNews> {
             ),
             Container(
               height: 5,
-              color: Color.fromARGB(255, 19, 23, 25),
+              color: const Color.fromARGB(255, 19, 23, 25),
             ),
             Container(
               padding: const EdgeInsets.all(12.0),

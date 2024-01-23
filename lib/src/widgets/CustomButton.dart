@@ -16,8 +16,14 @@ class MyButton extends StatefulWidget {
   final icon;
   final String initialText;
   final MyButtonEnum type;
+  final VoidCallback onPressed;
+
   const MyButton(
-      {super.key, this.icon, required this.initialText, required this.type});
+      {super.key,
+      this.icon,
+      required this.initialText,
+      required this.type,
+      required this.onPressed});
 
   @override
   State<MyButton> createState() => _MyButtonState();
@@ -33,37 +39,40 @@ class _MyButtonState extends State<MyButton> {
     text = widget.initialText;
   }
 
-  void _onPressed() {
-    setState(() {
-      switch (widget.type) {
-        case MyButtonEnum.like:
-          if (!isPressLike) {
-            isPressLike = true;
-            try {
-              int like = int.parse(text);
-              like++;
-              text = like.toString();
-            } catch (e) {
-              text = '1';
-            }
-          } else {
-            isPressLike = false;
-          }
-          break;
-        case MyButtonEnum.comment:
-          text = '1.2K';
-          break;
-        case MyButtonEnum.share:
-          text = '1.2K';
-          break;
-      }
-    });
-  }
+  // void _onPressed() {
+  //   setState(() {
+  //     switch (widget.type) {
+  //       case MyButtonEnum.like:
+  //         if (!isPressLike) {
+  //           isPressLike = true;
+  //           try {
+  //             int like = int.parse(text);
+  //             like++;
+  //             text = like.toString();
+  //           } catch (e) {
+  //             text = '1';
+  //           }
+  //         } else {
+  //           isPressLike = false;
+  //         }
+  //         break;
+  //       case MyButtonEnum.comment:
+  //         text = '1.2K';
+  //         break;
+  //       case MyButtonEnum.share:
+  //         text = '1.2K';
+  //         break;
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: _onPressed,
+      onTap: () {
+        // Xử lý sự kiện khi button được nhấn
+        widget.onPressed();
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15.0),
         child: Column(children: [
@@ -90,7 +99,7 @@ class CustomButton extends StatelessWidget {
   final IconData icon;
   final String initialText;
   final buttonType type;
-  final VoidCallback onPressed; // Thêm tham số callback này
+  final VoidCallback onPressed;
 
   const CustomButton(
       {super.key,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:opera_news/src/models/Category.dart';
 import 'package:opera_news/src/views/pages/videos_page.dart';
 
 import 'src/models/BottomNavItem.dart';
