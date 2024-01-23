@@ -23,8 +23,8 @@ class HomePage extends StatelessWidget {
         ],
         images: [
           'https://i1-thethao.vnecdn.net/2024/01/14/2024-01-08T204852Z-1703142120-3736-5554-1705207448.jpg?w=1020&h=0&q=100&dpr=1&fit=crop&s=-IZ3kjbZEXAK1zhPBsGgig',
-          'https://i1-thethao.vnecdn.net/2024/01/14/343937T-highres-jpeg-6405-1705207448.jpg?w=1020&h=0&q=100&dpr=1&fit=crop&s=D4RoWN5RQfJKccjTHb0pdg',
-          'https://i1-thethao.vnecdn.net/2024/01/14/Hojlund-v-Luton-jpeg-9670-1705207448.jpg?w=1020&h=0&q=100&dpr=1&fit=crop&s=Mmpd742x7LIjQeVk6N3RFw',
+          'https://i1-thethao.vnecdn.net/2024/01/14/2024-01-08T204852Z-1703142120-3736-5554-1705207448.jpg?w=1020&h=0&q=100&dpr=1&fit=crop&s=-IZ3kjbZEXAK1zhPBsGgig',
+          'https://i1-thethao.vnecdn.net/2024/01/14/2024-01-08T204852Z-1703142120-3736-5554-1705207448.jpg?w=1020&h=0&q=100&dpr=1&fit=crop&s=-IZ3kjbZEXAK1zhPBsGgig',
         ])
   ];
 

@@ -18,7 +18,10 @@ class MyPost extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => BodyPost(post: post,)),
+            MaterialPageRoute(
+                builder: (context) => BodyPost(
+                      post: post,
+                    )),
           );
         },
         child: Column(
@@ -40,7 +43,7 @@ class MyPost extends StatelessWidget {
                     children: [
                       ClipOval(
                         child: Image.network(
-                          'https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/336272922_269688702051800_3605603259970413830_n.png?_nc_cat=1&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeG32cWS97tqpSE2eFJFBQ7Q_trxT86EzPj-2vFPzoTM-Kw9cqIjBiB6RY-YuIThqj462XmaNDKeubvHvlVDoYFA&_nc_ohc=XZUDx43O4mQAX_FRBNS&_nc_ht=scontent.fdad3-1.fna&oh=00_AfCLPHWFlwyVL4bx546mUA9h6_Ak_V1MUfpPw2-6heOamw&oe=65AB4D9B',
+                          'https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-mu-inkythuatso-3-01-05-15-53-03.jpg',
                           width: 20,
                           height: 20,
                           fit: BoxFit.cover,

@@ -170,9 +170,75 @@ class BodyPost extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        shape: const CircleBorder(),
+        child: const Icon(Icons.share),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
-        child: Row(),
+        height: 60,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all(const Size(140, 35)),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      Colors.blueGrey.withOpacity(0.1)),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.edit_note_rounded,
+                      color: Colors.blueGrey[400],
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      'Comment',
+                      style: TextStyle(color: Colors.blueGrey[400]),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              padding: const EdgeInsets.only(bottom: 0),
+              icon: Transform.scale(
+                scaleX: -1,
+                child: const Icon(
+                  Icons.mode_comment_outlined,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              padding: const EdgeInsets.only(bottom: 0),
+              icon: const Icon(
+                Icons.thumb_up_off_alt_outlined,
+                color: Colors.white,
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              padding: const EdgeInsets.only(bottom: 0),
+              icon: const Icon(
+                Icons.thumb_down_alt_outlined,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+              width: 60,
+            ),
+          ],
+        ),
       ),
     );
   }
