@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final List<Widget> _pages = [
-    const Center(child: Text('Home')),
+    HomePage(),
     const VideosPage(),
     ReelsPage(),
     const UserPage()
@@ -60,7 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // extendBodyBehindAppBar: true,
         appBar: (_selectedIndex == 0 || _selectedIndex == 1)
             ? const CustomAppBar()
             : null,

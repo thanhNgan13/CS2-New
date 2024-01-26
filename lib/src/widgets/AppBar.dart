@@ -52,11 +52,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return PreferredSize(
-      preferredSize: preferredSize,
-      child: AppBar(
-        backgroundColor: Colors.black,
-        flexibleSpace: Column(
+    return AppBar(
+      backgroundColor: Colors.black,
+      flexibleSpace: Padding(
+        padding: const EdgeInsets.only(
+          top: 10,
+        ),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             //Row 1
