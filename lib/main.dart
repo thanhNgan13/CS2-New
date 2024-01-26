@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:opera_news/src/views/pages/videos_page.dart';
 
 import 'src/models/BottomNavItem.dart';
+import 'src/views/pages/home.dart';
 import 'src/views/pages/reels_page.dart';
 import 'src/views/pages/user.dart';
 import 'src/widgets/AppBar.dart';
