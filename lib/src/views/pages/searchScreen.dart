@@ -73,10 +73,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                   Expanded(
                     child: Container(
-                      height: 35, // Set the desired height here
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
                         color: Colors.black,
-                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextField(
                         controller: _searchController,
@@ -85,10 +85,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         cursorColor: Colors.grey,
                         style: const TextStyle(
                           color: Colors.white,
+                          fontSize: 16,
                         ),
                         decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.fromLTRB(16, 20, 16, 12),
                           border: InputBorder.none,
                           prefixIcon: searchText.isEmpty
                               ? const Icon(
