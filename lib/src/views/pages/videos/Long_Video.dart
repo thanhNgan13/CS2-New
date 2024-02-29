@@ -8,8 +8,21 @@ import '../videos_page.dart';
 class TemplateLongVideo extends StatefulWidget {
   final String urlVideo;
   final String title;
-  const TemplateLongVideo(
-      {super.key, required this.urlVideo, required this.title});
+  // các hàm onPressed của các button trong video
+  final VoidCallback onPressedLike;
+  final VoidCallback onPressedDislike;
+  final VoidCallback onPressedComments;
+  final VoidCallback onPressedShare;
+
+  const TemplateLongVideo({
+    super.key,
+    required this.urlVideo,
+    required this.title,
+    required this.onPressedLike,
+    required this.onPressedDislike,
+    required this.onPressedComments,
+    required this.onPressedShare,
+  });
 
   @override
   State<TemplateLongVideo> createState() => _TemplateLongVideoState();
@@ -83,25 +96,27 @@ class _TemplateLongVideoState extends State<TemplateLongVideo> {
                           style: TextStyle(color: Colors.red, fontSize: 12),
                         )),
                     const Spacer(),
+                    // like button
                     ButtonInVideosInteract(
                         icon: Icons.thumb_up_off_alt,
                         initialText: '1',
-                        onPressed: () {}),
+                        onPressed: widget.onPressedLike),
                     const SizedBox(width: 5),
                     // dislike button
                     ButtonInVideosInteract(
                         icon: Icons.thumb_down_off_alt,
                         initialText: '1',
-                        onPressed: () {}),
+                        onPressed: widget.onPressedDislike),
                     const SizedBox(width: 5),
                     // comment button
                     ButtonInVideosInteract(
                         icon: Icons.chat_bubble_outline,
                         initialText: '1',
-                        onPressed: () {}),
+                        onPressed: widget.onPressedComments),
                     const SizedBox(width: 5),
                     // share button
-                    ButtonInVideosInteract(icon: Icons.share, onPressed: () {}),
+                    ButtonInVideosInteract(
+                        icon: Icons.share, onPressed: widget.onPressedShare),
                   ],
                 ),
               )

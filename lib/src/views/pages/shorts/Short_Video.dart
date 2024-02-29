@@ -94,10 +94,8 @@ class _ShortVideoTemplateState extends State<ShortVideoTemplate> {
                   // Binh luan
                   templateComments(),
                   templateComments(),
-
                   templateComments(),
                   templateComments(),
-
                   templateComments(),
                   templateComments(),
                   templateComments(),
