@@ -60,9 +60,9 @@ class _CrawlPageState extends State<CrawlPage> {
                     const Icon(Icons.download, size: 50.0, color: Colors.white),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             _isLoading
-                ? CircularProgressIndicator() // Hiển thị hiệu ứng loading khi _isLoading là true
+                ? const CircularProgressIndicator() // Hiển thị hiệu ứng loading khi _isLoading là true
                 : Expanded(
                     child: SingleChildScrollView(
                       child: Column(
@@ -73,29 +73,29 @@ class _CrawlPageState extends State<CrawlPage> {
                             children: [
                               Text(
                                 'Title: ${item.title}',
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                               Text(
                                 'Link: ${item.link}',
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                               Text(
                                 'Content: ${item.content}',
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                               Text(
                                 'Image: ${item.imageUrl}',
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                               Text(
                                 'PubDate: ${item.pubDate}',
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                               Text(
                                 'Source: ${item.source}',
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
-                              Divider(
+                              const Divider(
                                 color: Colors.grey,
                                 thickness: 1,
                               ),
@@ -137,32 +137,31 @@ class _CrawlPageState extends State<CrawlPage> {
 
         if (linkResponse.statusCode == 200) {
           var linkDocument = parser.parse(linkResponse.body);
+          print(linkDocument.getElementsByTagName('a').first.text);
           var linkResponseDone = await http.get(
               Uri.parse(linkDocument.getElementsByTagName('a').first.text));
 
           if (linkResponseDone.statusCode == 200) {
             var linkDocumentDone = parser.parse(linkResponseDone.body);
             // Lấy nội dung thẻ p
-            String content =
-                linkDocumentDone.getElementsByTagName('title').first.text;
+            // String content =
+            //     linkDocumentDone.getElementsByTagName('title').first.text;
 
             // Lấy URL của hình ảnh (nếu có)
-            String imageUrl = linkDocumentDone
-                    .getElementsByTagName('img')
-                    .first
-                    .attributes['src'] ??
-                '';
+            // String imageUrl = linkDocumentDone
+            //         .getElementsByTagName('img')
+            //         .first
+            //         .attributes['src'] ??
+            //     '';
 
             NewsItem newsItem = NewsItem(
               title: title,
               link: link,
               pubDate: pubDate,
               source: source,
-              content: content,
-              imageUrl: imageUrl,
+              content: 'content',
+              imageUrl: 'imageUrl',
             );
-
-            print(newsItem.toString());
 
             newsList.add(newsItem);
           }
