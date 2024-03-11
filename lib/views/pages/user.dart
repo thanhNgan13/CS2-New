@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
-import 'package:opera_news/admin/adminpage.dart';
+import 'package:opera_news/views/admin/adminpage.dart';
 import '../../widgets/CustomButton.dart';
 
 class UserPage extends StatefulWidget {

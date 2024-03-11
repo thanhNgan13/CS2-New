@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:opera_news/admin/views/crawlpage.dart';
-import 'package:opera_news/admin/views/dashboardpage.dart';
-import 'package:opera_news/admin/views/postpage.dart';
+import 'package:opera_news/views/admin/views/crawlpage.dart';
+import 'package:opera_news/views/admin/views/dashboardpage.dart';
+import 'package:opera_news/views/admin/views/postpage.dart';
 import 'package:opera_news/models/BottomNavItem.dart';
 
 class AdminPage extends StatefulWidget {
