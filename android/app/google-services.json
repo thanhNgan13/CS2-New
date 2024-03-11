@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "662802348087",
+    "project_id": "opera-news-18592",
+    "storage_bucket": "opera-news-18592.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662802348087:android:d3413fd76b924fb1bc27b2",
+        "android_client_info": {
+          "package_name": "com.example.opera_news"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTRH2V-VaGwUdz57SPeHcmV5VwCKgwEh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

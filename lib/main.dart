@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:opera_news/src/views/pages/videos_page.dart';
+import 'package:opera_news/views/pages/videos_page.dart';
 
-import 'src/models/BottomNavItem.dart';
-import 'src/views/pages/home.dart';
-import 'src/views/pages/reels_page.dart';
-import 'src/views/pages/user.dart';
-import 'src/widgets/AppBar.dart';
+import 'models/BottomNavItem.dart';
+import 'views/pages/home.dart';
+import 'views/pages/reels_page.dart';
+import 'views/pages/user.dart';
+import 'widgets/AppBar.dart';
 
 void main() {
   runApp(const MyApp());
