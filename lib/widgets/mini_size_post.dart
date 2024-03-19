@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:opera_news/models/Post.dart';
+import 'package:opera_news/models/post_model.dart';
 
 class MiniSizePost extends StatelessWidget {
   const MiniSizePost({
@@ -19,7 +19,7 @@ class MiniSizePost extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.network(
-              post.images[2],
+              post.imageUrl,
               height: 120,
               width: 150,
               fit: BoxFit.cover,
@@ -79,7 +79,7 @@ class MiniSizePost extends StatelessWidget {
                     ),
                     Flexible(
                       child: Text(
-                        post.source,
+                        post.pubDate,
                         style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 13,

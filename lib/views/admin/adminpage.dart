@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:opera_news/providers/post_provider.dart';
 import 'package:opera_news/views/admin/views/crawlpage.dart';
 import 'package:opera_news/views/admin/views/dashboardpage.dart';
 import 'package:opera_news/views/admin/views/postpage.dart';
 import 'package:opera_news/models/BottomNavItem.dart';
+import 'package:provider/provider.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
@@ -37,30 +39,36 @@ class _AdminPageState extends State<AdminPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Admin Page'),
-        ),
-        body: IndexedStack(
-          index: _selectedIndex,
-          children: _pages,
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.black,
-          unselectedItemColor: Colors.grey,
-          selectedItemColor: Colors.red,
-          unselectedFontSize: 15,
-          selectedFontSize: 15,
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          items: [
-            for (var i = 0; i < bottomNavItems.length; i++)
-              BottomNavigationBarItem(
-                icon: bottomNavItems.elementAt(i).icon,
-                label: bottomNavItems.elementAt(i).label,
-              )
-          ],
-        ));
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (context) => PostProvider()), // Cung cấp PostProvider ở đây
+      ],
+      child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Admin Page'),
+          ),
+          body: IndexedStack(
+            index: _selectedIndex,
+            children: _pages,
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Colors.black,
+            unselectedItemColor: Colors.grey,
+            selectedItemColor: Colors.red,
+            unselectedFontSize: 15,
+            selectedFontSize: 15,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            items: [
+              for (var i = 0; i < bottomNavItems.length; i++)
+                BottomNavigationBarItem(
+                  icon: bottomNavItems.elementAt(i).icon,
+                  label: bottomNavItems.elementAt(i).label,
+                )
+            ],
+          )),
+    );
   }
 }
