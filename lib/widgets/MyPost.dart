@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:opera_news/models/Post.dart';
+import 'package:opera_news/models/post_model.dart';
 import 'package:opera_news/widgets/BodyPost.dart';
 
 class MyPost extends StatelessWidget {
@@ -27,10 +27,16 @@ class MyPost extends StatelessWidget {
         child: Column(
           children: [
             Image.network(
-              post.images[0],
+              post.imageUrl,
               height: 250,
               width: MediaQuery.of(context).size.width,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Placeholder(
+                  fallbackHeight: 250,
+                  fallbackWidth: MediaQuery.of(context).size.width,
+                );
+              },
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

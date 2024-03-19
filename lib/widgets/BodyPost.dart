@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:opera_news/models/post_model.dart';
 
-import '../models/Post.dart';
 import 'comment.dart';
 import 'mini_size_post.dart';
 import 'share_modal.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class BodyPost extends StatelessWidget {
+class BodyPost extends StatefulWidget {
   const BodyPost({super.key, required this.post});
 
   final Post post;
 
+  @override
+  State<BodyPost> createState() => _BodyPostState();
+}
+
+class _BodyPostState extends State<BodyPost> {
+  bool isWebView = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +116,7 @@ class BodyPost extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                post.title,
+                widget.post.title,
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 30,
@@ -128,107 +135,29 @@ class BodyPost extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      post.content[0],
+                      widget.post.contents.join('\n\n'),
                       style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 20,
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      post.content[1],
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      post.content[2],
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Image.network(
-                      post.images[0],
-                      height: 250,
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.cover,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      post.content[3],
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      post.content[4],
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      post.content[5],
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Image.network(
-                      post.images[1],
-                      height: 250,
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.cover,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      post.content[6],
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Image.network(
-                      post.images[2],
-                      height: 250,
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.cover,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      post.content[7],
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 20,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            isWebView = !isWebView;
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.blueGrey[900]!),
+                          ),
+                          child: const Text(
+                            'Read more',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -278,9 +207,9 @@ class BodyPost extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  MiniSizePost(post: post),
-                  MiniSizePost(post: post),
-                  MiniSizePost(post: post)
+                  MiniSizePost(post: widget.post),
+                  MiniSizePost(post: widget.post),
+                  MiniSizePost(post: widget.post)
                 ],
               ),
             ),

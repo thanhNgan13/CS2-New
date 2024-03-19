@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:opera_news/views/pages/videos_page.dart';
+import 'package:opera_news/providers/post_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 import 'models/BottomNavItem.dart';
 import 'views/pages/home.dart';
-import 'views/pages/reels_page.dart';
 import 'views/pages/user.dart';
 import 'widgets/AppBar.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
@@ -40,12 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  final List<Widget> _pages = [
-    HomePage(),
-    const VideosPage(),
-    ReelsPage(),
-    const UserPage()
-  ];
+  final List<Widget> _pages = [HomePage(), const UserPage()];
 
   final List<BottomNavItem> bottomNavItems = [
     BottomNavItem(
@@ -53,17 +55,13 @@ class _MyHomePageState extends State<MyHomePage> {
           Icons.refresh,
         ),
         label: 'Refresh'),
-    BottomNavItem(icon: const Icon(Icons.play_circle_outline), label: 'Video'),
-    BottomNavItem(icon: const Icon(Icons.local_movies), label: 'Clips'),
     BottomNavItem(icon: const Icon(Icons.person_outline), label: 'User'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: (_selectedIndex == 0 || _selectedIndex == 1)
-            ? const CustomAppBar()
-            : null,
+        appBar: (_selectedIndex == 0) ? const CustomAppBar() : null,
         body: IndexedStack(
           index: _selectedIndex,
           children: _pages,
