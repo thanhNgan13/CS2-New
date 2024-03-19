@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:opera_news/providers/auth-account-google.dart';
 import 'package:opera_news/views/admin/adminpage.dart';
 import '../../widgets/CustomButton.dart';
 
@@ -11,9 +13,9 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> with WidgetsBindingObserver {
-  // Lấy chiều dài và chiều cao của màn hình
-
   bool isBottomSheetOpen = false;
+  bool isLogged = false;
+  String userImage = '';
 
   @override
   void initState() {
@@ -37,7 +39,7 @@ class _UserPageState extends State<UserPage> with WidgetsBindingObserver {
     }
   }
 
-  // Hàm hiển thị bottom sheet
+  // Show dialog box
   displayDialogBox() {
     // Kiểm tra xem định hướng hiện tại có phải là ngang hay không
     var orientation = MediaQuery.of(context).orientation;
@@ -89,7 +91,7 @@ class _UserPageState extends State<UserPage> with WidgetsBindingObserver {
                 ButtonLogin(
                     urlImage: 'assets/images/google-logo.png',
                     text: 'Sign in with Google',
-                    onPressed: () {}),
+                    onPressed: signInWithGoogle),
                 ButtonLogin(
                     urlImage: 'assets/images/facebook-logo.png',
                     text: 'Sign in with Facebook',
@@ -137,27 +139,7 @@ class _UserPageState extends State<UserPage> with WidgetsBindingObserver {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(200, 50),
-                      foregroundColor: Colors.white,
-                      backgroundColor:
-                          const Color.fromARGB(255, 216, 65, 18), // foreground
-                    ),
-                    onPressed: () {
-                      displayDialogBox();
-                    },
-                    child: const Text('Login',
-                        style: TextStyle(fontSize: 16, color: Colors.black)),
-                  )
-                ],
-              ),
-            ),
+            isLogged ? widgetLogged() : widgetLogin(),
             Row(
               children: [
                 Expanded(
@@ -262,6 +244,110 @@ class _UserPageState extends State<UserPage> with WidgetsBindingObserver {
           ],
         ),
       ),
+    );
+  }
+
+  void signInWithGoogle() async {
+    try {
+      // Attempt to sign in with Google
+      final UserCredential userCredential =
+          await AuthService.signInWithGoogle();
+      // Check if the sign-in was successful
+      if (userCredential.user != null) {
+        // Close the modal bottom sheet if it's open
+        if (Navigator.canPop(context)) {
+          Navigator.of(context).pop();
+        }
+        // Update the UI to reflect the user's logged-in status
+        setState(() {
+          isLogged = true; // Set logged in flag to true
+          userImage =
+              userCredential.user!.photoURL ?? ''; // Set the user's image URL
+        });
+      }
+    } catch (e) {
+      // Handle errors here, e.g., show a toast or a snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error signing in with Google: $e'),
+        ),
+      );
+    }
+  }
+
+  Padding widgetLogin() {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(200, 50),
+              foregroundColor: Colors.white,
+              backgroundColor:
+                  const Color.fromARGB(255, 216, 65, 18), // foreground
+            ),
+            onPressed: () {
+              displayDialogBox();
+            },
+            child: const Text('Login',
+                style: TextStyle(fontSize: 16, color: Colors.black)),
+          )
+        ],
+      ),
+    );
+  }
+
+  Column widgetLogged() {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              // create image avatar
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.red, // Màu của đường viền
+                    width: 3.0, // Độ dày của đường viền
+                  ),
+                ),
+                child: ClipOval(
+                  child: Image.network(
+                    userImage,
+                    fit: BoxFit.cover,
+                    height: 50.0,
+                    width: 50.0,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              // create text
+              const Text(
+                'Welcome back',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Container(
+          height: 10.0,
+          width: double.infinity,
+          color: Colors.black,
+        ),
+      ],
     );
   }
 }

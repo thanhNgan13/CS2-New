@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:opera_news/widgets/button_share.dart';
 import 'package:opera_news/widgets/out_line_button_custom.dart';
-import 'package:share/share.dart';
 
 class ShareModal extends StatelessWidget {
   const ShareModal({
